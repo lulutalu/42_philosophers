@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/20 21:03:23 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:05:19 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,16 @@
 # include <unistd.h>	/* write, usleep functions */
 # include <sys/time.h>	/* gettimeofday function */
 # include <pthread.h>	/* threads and mutex functions */
+
+/*
+ * Variables Structures
+*/
+
+typedef struct s_thread
+{
+	pthread_t		id;
+	pthread_mutex_t	mute;
+	int				i;
+}				t_thread;
 
 #endif

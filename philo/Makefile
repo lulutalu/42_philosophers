@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/20 20:39:44 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/23 20:05:20 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ RESET	= \033[0m
 
 
 SRCS_DIR		= ./src/
-SRCS_FILES		= 
+SRCS_FILES		= main.c
 
 SRCS			:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -48,7 +48,7 @@ AR				= ar rcs
 MKDIR			= mkdir
 RM				= rm -rf
 
-CFLAGS			= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
 
 TSEP			= ${SEP}=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=${RESET}
 
@@ -58,10 +58,9 @@ all:			${NAME}
 
 ${NAME}:		${O_DIR} ${OBJS}
 				@printf "\n"
-				@${MAKELIB} ${LIBUTILS}
 				@printf "${TSEP}\n"
 				@printf "\n${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
-				@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBUTILS}/libutils.a
+				@${CC} ${CFLAGS} -o ${NAME} ${OBJS}
 				@printf "${GREEN} 💻 Successfully created ${NAME} executable${RESET} ✅\n"
 				@printf "\n${TSEP}\n"
 
