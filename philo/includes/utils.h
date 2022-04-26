@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:06:22 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 16:07:59 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/26 17:51:31 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "utils.h"
 
-int	ft_atoi(const char *str);
+long	ft_atol(const char *str);
 
 #endif

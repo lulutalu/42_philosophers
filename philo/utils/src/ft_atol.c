@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 12:06:12 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 16:07:29 by lduboulo         ###   ########.fr       */
+/*   Created: 2022/03/28 15:02:09 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/04/26 17:51:32 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	i;
-	int	res;
-	int	minus;
+	int		i;
+	long	res;
+	int		minus;
 
 	minus = 1;
 	i = 0;
@@ -37,11 +37,3 @@ int	ft_atoi(const char *str)
 	}
 	return (res * minus);
 }
-
-/*int	main()
-{
-	char	str[] = "-123THERE IS A NYANCAT UNDER YOUR BED";
-
-	printf("Function C Value = %i\n", atoi(str));
-	printf("Function Mano Value = %i\n", ft_atoi(str));
-}*/

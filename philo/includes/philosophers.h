@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 16:28:19 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:04:35 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@
  * Macro for error
 */
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 # define NARG "\e[1;91mNumber of arguments incorrect\n\e[0m"
+# define INT_LIM "\e[1;91mArgs value exceed integer limit\n\e[0m"
 
 /*
  * Variables Structures
@@ -51,16 +54,16 @@ typedef struct s_thread
 typedef struct s_time
 {
 	struct timeval	begin;
-	struct timeval	end;
+	struct timeval	actual;
 }				t_time;
 
 typedef struct s_philo
 {
-	int	n;
-	int	t_death;
-	int	t_eat;
-	int	t_sleep;
-	int	n_eat;
+	long	n;
+	long	t_death;
+	long	t_eat;
+	long	t_sleep;
+	long	n_eat;
 }				t_philo;
 
 /*
@@ -73,6 +76,12 @@ int		error(char *error);
  * Args Functions
 */
 
-void	philo_args(t_philo *philo, char **argv);
+int		philo_args(t_philo *philo, char **argv);
+
+/*
+ * Time Functions
+*/
+
+double	timer_ms(t_time *time);
 
 #endif

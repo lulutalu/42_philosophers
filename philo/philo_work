@@ -1,0 +1,116 @@
+let SessionLoad = 1
+if &cp | set nocp | endif
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~/42Student/Common_Core/42_philosophers/philo
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+argglobal
+%argdel
+$argadd src/main.c
+edit src/args.c
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 106 + 159) / 318)
+exe 'vert 2resize ' . ((&columns * 105 + 159) / 318)
+exe 'vert 3resize ' . ((&columns * 105 + 159) / 318)
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 17 - ((16 * winheight(0) + 29) / 59)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+17
+normal! 05|
+wincmd w
+argglobal
+if bufexists("includes/philosophers.h") | buffer includes/philosophers.h | else | edit includes/philosophers.h | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 81 - ((55 * winheight(0) + 29) / 59)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+81
+normal! 0
+wincmd w
+argglobal
+if bufexists("src/main.c") | buffer src/main.c | else | edit src/main.c | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 26 - ((25 * winheight(0) + 29) / 59)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+26
+normal! 032|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 106 + 159) / 318)
+exe 'vert 2resize ' . ((&columns * 105 + 159) / 318)
+exe 'vert 3resize ' . ((&columns * 105 + 159) / 318)
+tabnext 1
+badd +0 src/main.c
+badd +0 includes/philosophers.h
+badd +15 utils/src/qol.c
+badd +19 utils/src/args.c
+badd +28 utils/Makefile
+badd +27 Makefile
+badd +13 src/qol.c
+badd +18 src/args.c
+badd +14 utils/src/ft_atoi.c
+badd +16 includes/utils.h
+badd +17 src/time.c
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToOS
+set winminheight=1 winminwidth=1
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+nohlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
