@@ -1,23 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:06:22 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 19:48:09 by lduboulo         ###   ########.fr       */
+/*   Created: 2022/04/26 19:38:44 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/04/26 19:41:10 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../includes/philosophers.h"
 
-# include "philosophers.h"
-# include "utils.h"
-
-long	ft_atol(const char *str);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_bzero(void *s, size_t n);
-
-#endif
+void	add_lst(

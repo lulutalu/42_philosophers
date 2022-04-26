@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 00:27:49 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/26 17:51:30 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/26 19:37:56 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ RESET	= \033[0m
 
 
 SRCS_DIR	= ./src/
-SRCS_FILES	= ft_atol.c
+SRCS_FILES	= ft_atol.c ft_calloc.c ft_bzero.c
 
 SRCS		:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 

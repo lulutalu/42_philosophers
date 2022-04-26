@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:06:22 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 19:48:09 by lduboulo         ###   ########.fr       */
+/*   Created: 2021/10/24 21:59:37 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/04/26 19:36:44 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/utils.h"
 
-# include "philosophers.h"
-# include "utils.h"
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
 
-long	ft_atol(const char *str);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_bzero(void *s, size_t n);
-
-#endif
+	ptr = malloc(count * size);
+	if (! ptr)
+		return (NULL);
+	ft_bzero(ptr, size * count);
+	return (ptr);
+}

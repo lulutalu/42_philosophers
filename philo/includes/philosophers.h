@@ -6,19 +6,12 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 18:04:35 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:49:26 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
-
-/*
- * Default Library
-*/
-
-# include "philosophers.h"
-# include "utils.h"
 
 /*
  * Authorized Functions Library
@@ -27,9 +20,17 @@
 # include <string.h>	/* memset function */
 # include <stdio.h> 	/* printf function */
 # include <stdlib.h>	/* malloc, free functions */
+# include <stddef.h>	/* Size_t variable */
 # include <unistd.h>	/* write, usleep functions */
 # include <sys/time.h>	/* gettimeofday function */
 # include <pthread.h>	/* threads and mutex functions */
+
+/*
+ * Default Library
+*/
+
+# include "philosophers.h"
+# include "utils.h"
 
 /*
  * Macro for error
@@ -57,14 +58,28 @@ typedef struct s_time
 	struct timeval	actual;
 }				t_time;
 
-typedef struct s_philo
+typedef struct s_args
 {
 	long	n;
 	long	t_death;
 	long	t_eat;
 	long	t_sleep;
 	long	n_eat;
+}				t_args;
+
+typedef struct s_philo
+{
+	struct s_philo	*next;
+	struct s_philo	*prev;
+	pthread_t		id;
 }				t_philo;
+
+typedef struct s_main
+{
+	t_time	time;
+	t_args	args;
+	t_philo	philo;
+}				t_main;
 
 /*
  * QOL functions
@@ -76,7 +91,7 @@ int		error(char *error);
  * Args Functions
 */
 
-int		philo_args(t_philo *philo, char **argv);
+int		philo_args(t_main *main, char **argv);
 
 /*
  * Time Functions

@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:06:22 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 19:48:09 by lduboulo         ###   ########.fr       */
+/*   Created: 2021/10/13 14:30:34 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/04/26 19:37:37 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/utils.h"
 
-# include "philosophers.h"
-# include "utils.h"
+void	*ft_bzero(void *s, size_t n)
+{
+	int	is;
 
-long	ft_atol(const char *str);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_bzero(void *s, size_t n);
+	is = 0;
+	while (n-- > 0)
+		((char *)s)[is++] = '\0';
+	return (s);
+}
 
-#endif
+/*int main()
+{
+	char	s[] = "Ceci est un test";
+	unsigned long n;
+
+	n = 15;
+	printf("Fonction C = %s\n", bzero(s, n));
+	printf("Fonction mano = %s\n", ft_bzero(s, n));
+}*/
