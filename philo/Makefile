@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/23 20:05:20 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/26 16:09:10 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ RESET	= \033[0m
 
 
 SRCS_DIR		= ./src/
-SRCS_FILES		= main.c
+SRCS_FILES		= main.c qol.c args.c
 
 SRCS			:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
@@ -58,9 +58,10 @@ all:			${NAME}
 
 ${NAME}:		${O_DIR} ${OBJS}
 				@printf "\n"
+				@${MAKELIB} ${LIBUTILS}
 				@printf "${TSEP}\n"
 				@printf "\n${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
-				@${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+				@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBUTILS}/libutils.a
 				@printf "${GREEN} 💻 Successfully created ${NAME} executable${RESET} ✅\n"
 				@printf "\n${TSEP}\n"
 
@@ -74,6 +75,7 @@ ${O_DIR}%.o:${SRCS_DIR}%.c
 
 clean :
 				@${RM} ${O_DIR}
+				@${MAKELIB} ${LIBUTILS} clean
 				@printf "\n${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n\n"
 
 fclean : 		clean

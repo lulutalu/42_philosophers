@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/23 20:05:19 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:28:19 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include "philosophers.h"
+# include "utils.h"
 
 /*
  * Authorized Functions Library
@@ -31,6 +32,12 @@
 # include <pthread.h>	/* threads and mutex functions */
 
 /*
+ * Macro for error
+*/
+
+# define NARG "\e[1;91mNumber of arguments incorrect\n\e[0m"
+
+/*
  * Variables Structures
 */
 
@@ -40,5 +47,32 @@ typedef struct s_thread
 	pthread_mutex_t	mute;
 	int				i;
 }				t_thread;
+
+typedef struct s_time
+{
+	struct timeval	begin;
+	struct timeval	end;
+}				t_time;
+
+typedef struct s_philo
+{
+	int	n;
+	int	t_death;
+	int	t_eat;
+	int	t_sleep;
+	int	n_eat;
+}				t_philo;
+
+/*
+ * QOL functions
+*/
+
+int		error(char *error);
+
+/*
+ * Args Functions
+*/
+
+void	philo_args(t_philo *philo, char **argv);
 
 #endif
