@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/26 19:49:26 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/04/28 16:57:37 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_philo
 {
 	struct s_philo	*next;
 	struct s_philo	*prev;
+	int				i;
 	pthread_t		id;
 }				t_philo;
 
@@ -78,7 +79,8 @@ typedef struct s_main
 {
 	t_time	time;
 	t_args	args;
-	t_philo	philo;
+	t_philo	*head;
+	t_philo	*tail;
 }				t_main;
 
 /*
@@ -86,12 +88,19 @@ typedef struct s_main
 */
 
 int		error(char *error);
+int		mem_check(void *ptr);
 
 /*
  * Args Functions
 */
 
 int		philo_args(t_main *main, char **argv);
+
+/*
+ * Linked List
+*/
+
+int		add_lst(t_main main, int n);
 
 /*
  * Time Functions

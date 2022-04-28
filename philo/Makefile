@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/26 17:47:23 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/04/27 15:39:06 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ RESET	= \033[0m
 
 
 SRCS_DIR		= ./src/
-SRCS_FILES		= main.c qol.c args.c time.c
+SRCS_FILES		= main.c qol.c args.c time.c linked_list.c
 
 SRCS			:= ${patsubst %, ${SRCS_DIR}%, ${SRCS_FILES}}
 
