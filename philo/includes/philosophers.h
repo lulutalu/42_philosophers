@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/28 16:57:37 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:42:11 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_main
 	t_args	args;
 	t_philo	*head;
 	t_philo	*tail;
+	int		i;
 }				t_main;
 
 /*
@@ -100,7 +101,9 @@ int		philo_args(t_main *main, char **argv);
  * Linked List
 */
 
-int		add_lst(t_main main, int n);
+int		add_lst(t_philo **head, t_philo **tail, int n);
+void	del_lst(t_philo **head, t_philo **tail);
+void	last_del_lst(t_philo **tail);
 
 /*
  * Time Functions

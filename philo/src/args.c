@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:47:02 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/04/28 16:21:32 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:13:27 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	philo_args(t_main *main, char **argv)
 	main->args.t_sleep = ft_atol(argv[4]);
 	if (argv[5] != NULL)
 		main->args.n_eat = ft_atol(argv[5]);
+	else
+		main->args.n_eat = -1;
 	if (main->args.n < INT_MIN || main->args.n > INT_MAX)
 		return (error(INT_LIM));
 	if (main->args.t_death < INT_MIN || main->args.t_death > INT_MAX)
