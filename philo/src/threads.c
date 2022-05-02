@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   qol.c                                              :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 15:05:33 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/02 19:24:16 by lduboulo         ###   ########.fr       */
+/*   Created: 2022/05/02 19:24:33 by lduboulo          #+#    #+#             */
+/*   Updated: 2022/05/02 20:25:08 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	error(char *error)
-{
-	printf("%s", error);
-	return (1);
-}
-
-int	mem_check(void *ptr)
-{
-	if (ptr == NULL)
-		return (1);
-	return (0);
-}
-
-int	close_programm(t_main *main)
+void	*p_thread(void *arg_struct)
 {
 	t_philo	*cur;
 
-	cur = main->head;
-	while (cur->i <= main->args.n)
-	{
-		pthread_detach(cur->id);
-		cur = cur->next;
-	}
-	del_lst(&main->head, &main->tail);
-	return (1);
+	cur = (t_philo *)arg_struct;
+	printf("Thread : %d\n", cur->i);
+	usleep(1000);
+	gettimeofday(&cur->time.actual, NULL);
+	printf("Time passed in ms : %f\n", timer_ms(&cur->time));
+	return (0);
 }

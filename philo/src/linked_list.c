@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 19:38:44 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/02 14:42:14 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/02 19:20:03 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ int	add_lst(t_philo **head, t_philo **tail, int n)
 	return (0);
 }
 
-void	del_lst(t_philo	**head, t_philo **tail)
+int	del_lst(t_philo	**head, t_philo **tail)
 {
 	while (*head != *tail)
 		last_del_lst(tail);
 	free(*head);
 	*head = NULL;
 	*tail = NULL;
+	return (1);
 }
 
 void	last_del_lst(t_philo **tail)
