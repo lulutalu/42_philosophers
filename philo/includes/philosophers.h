@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/02 20:36:48 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:27:09 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define FREE 0
+# define USED 1
 # define NARG "\e[1;91mNumber of arguments incorrect\n\e[0m"
 # define INT_LIM "\e[1;91mArgs value exceed integer limit\n\e[0m"
 
@@ -60,6 +62,7 @@ typedef struct s_time
 
 typedef struct s_args
 {
+	int		*fork;
 	long	n;
 	long	t_death;
 	long	t_eat;
@@ -72,15 +75,17 @@ typedef struct s_philo
 	struct s_philo	*next;
 	struct s_philo	*prev;
 	int				i;
+	int				fork;
 	pthread_t		id;
-	t_time			time;
 }				t_philo;
 
 typedef struct s_main
 {
-	t_args	args;
-	t_philo	*head;
-	t_philo	*tail;
+	t_args			args;
+	t_time			time;
+	t_philo			*head;
+	t_philo			*tail;
+	pthread_mutex_t	lock;
 	int		i;
 }				t_main;
 

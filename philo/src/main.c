@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:58:26 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/02 20:36:47 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:27:09 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	t_main	main;
-	int		status;
-	t_philo	*cur;
-	t_philo	philo;
+	t_main			main;
+	int				status;
+	t_philo			*cur;
 
 	if (argc < 5 || argc > 6)
 		return (error(NARG));
@@ -31,23 +30,29 @@ int	main(int argc, char **argv)
 		status = add_lst(&main.head, &main.tail, main.i++);
 	if (status == 1)
 		return (del_lst(&main.head, &main.tail));
+	/////////////////////////////////////////////
+	gettimeofday(&main.time.begin, NULL);
+	if (pthread_mutex_init(&main.lock, NULL) != 0)
+		return (close_programm(&main));
+	////////////////////////////////////////////
+	main.i = 1;
 	cur = main.head;
-	gettimeofday(&philo.time.begin, NULL);
-	while (cur != NULL && status == 0)
+	while (main.i <= main.args.n && status == 0)
 	{
-		philo = *cur;
-		status = pthread_create(&cur->id, NULL, p_thread, &philo);
+		status = pthread_create(&cur->id, NULL, p_thread, &main);
+		usleep(1000);
+		main.i++;
 		cur = cur->next;
 	}
 	if (status != 0)
 		return (close_programm(&main));
+	/////////////////////////////////////////////
 	cur = main.head;
-	status = -1;
 	while (cur != NULL)
 	{
-		while (status != 0)
-			status = pthread_join(cur->id, NULL);
+		pthread_join(cur->id, NULL);
 		cur = cur->next;
 	}
+	pthread_mutex_destroy(&main.lock);
 	return (0);
 }
