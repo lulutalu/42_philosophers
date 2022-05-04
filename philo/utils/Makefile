@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 00:27:49 by lduboulo          #+#    #+#              #
-#    Updated: 2022/04/26 19:37:56 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/05/04 18:33:13 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,9 +54,9 @@ all:		${NAME}
 
 ${NAME}:	${O_DIR} ${OBJS}
 			@printf "\n${TSEP}\n"
-			@printf "\n${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
+			@printf "${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
 			@${AR} ${NAME} ${OBJS}
-			@printf "${GREEN} 💻 Successfully created ${NAME} library${RESET} ✅\n\n"
+			@printf "${GREEN} 💻 Successfully created ${NAME} library${RESET} ✅\n"
 
 ${O_DIR}:
 			@${MKDIR} ${O_DIR}
@@ -68,10 +68,11 @@ ${O_DIR}%.o:${SRCS_DIR}%.c
 clean :
 			@${RM} ${O_DIR}
 			@printf "${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n"
+			@printf "${RED}=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-${RESET}\n"
 
 fclean : clean
 			@${RM} ${NAME}
-			@printf "\n${RED} 💥 Deleted ${NAME} files${RESET} ❌\n\n"
+			@printf "${RED} 💥 Deleted ${NAME} files${RESET} ❌\n"
 
 re : fclean all
 

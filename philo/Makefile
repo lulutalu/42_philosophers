@@ -6,7 +6,7 @@
 #    By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/27 18:29:51 by lduboulo          #+#    #+#              #
-#    Updated: 2022/05/02 19:25:56 by lduboulo         ###   ########.fr        #
+#    Updated: 2022/05/04 18:33:47 by lduboulo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,14 +60,14 @@ ${NAME}:		${O_DIR} ${OBJS}
 				@printf "\n"
 				@${MAKELIB} ${LIBUTILS}
 				@printf "${TSEP}\n"
-				@printf "\n${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
+				@printf "${GREEN} 💻 Successfully compiled ${NAME} .o's${RESET} ✅\n"
 				@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBUTILS}/libutils.a
 				@printf "${GREEN} 💻 Successfully created ${NAME} executable${RESET} ✅\n"
-				@printf "\n${TSEP}\n"
+				@printf "${TSEP}\n"
 
 ${O_DIR}:
 				@${MKDIR} ${O_DIR}
-				@printf "${BUILD}${O_DIR} Directory Created 📎${RESET}\n\n"
+				@printf "\n${BUILD}${O_DIR} Directory Created 📎${RESET}\n\n"
 
 ${O_DIR}%.o:${SRCS_DIR}%.c
 				@${CC} ${CFLAGS} -I${HEADS_DIR} -o $@ -c $<
@@ -76,12 +76,14 @@ ${O_DIR}%.o:${SRCS_DIR}%.c
 clean :
 				@${RM} ${O_DIR}
 				@${MAKELIB} ${LIBUTILS} clean
-				@printf "\n${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n\n"
+				@printf "${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n"
 
-fclean : 		clean
+fclean :
+				@${RM} ${O_DIR}
+				@printf "${RED} 🧹 Deleted ${NAME} .o's${RESET} ❌\n"
 				@${RM} ${NAME} ${NAME}.dSYM
 				@${MAKELIB} ${LIBUTILS} fclean
-				@printf "${RED} 💥 Deleted ${NAME} files${RESET} ❌\n\n"
+				@printf "${RED} 💥 Deleted ${NAME} files${RESET} ❌\n"
 
 re : 			fclean all
 

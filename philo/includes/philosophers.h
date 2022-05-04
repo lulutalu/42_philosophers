@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/03 19:27:09 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:48:25 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_time
 
 typedef struct s_args
 {
-	int		*fork;
 	long	n;
 	long	t_death;
 	long	t_eat;
@@ -75,7 +74,6 @@ typedef struct s_philo
 	struct s_philo	*next;
 	struct s_philo	*prev;
 	int				i;
-	int				fork;
 	pthread_t		id;
 }				t_philo;
 
@@ -85,8 +83,8 @@ typedef struct s_main
 	t_time			time;
 	t_philo			*head;
 	t_philo			*tail;
-	pthread_mutex_t	lock;
-	int		i;
+	pthread_mutex_t	*fork;
+	int				i;
 }				t_main;
 
 /*
@@ -102,6 +100,7 @@ int		close_programm(t_main *main);
 */
 
 int		philo_args(t_main *main, char **argv);
+int		args_check(t_main *main);
 
 /*
  * Linked List

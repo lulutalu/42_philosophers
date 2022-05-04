@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 19:38:44 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/03 19:27:07 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:41:45 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	add_lst(t_philo **head, t_philo **tail, int n)
 		return (1);
 	new->next = NULL;
 	new->prev = NULL;
-	new->fork = FREE;
 	new->i = n;
 	if (*head == NULL)
 	{
