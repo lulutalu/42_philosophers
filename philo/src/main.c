@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:58:26 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:48:26 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:18:13 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int argc, char **argv)
 	if (status == 1)
 		return (del_lst(&main.head, &main.tail));
 	/////////////////////////////////////////////
-	gettimeofday(&main.time.begin, NULL);
+	gettimeofday(&main.start, NULL);
+	if (pthread_mutex_init(&main.write, NULL) != 0)
+		return (1);
 	////////////////////////////////////////////
 	main.i = 1;
 	cur = main.head;
@@ -51,5 +53,6 @@ int	main(int argc, char **argv)
 		pthread_join(cur->id, NULL);
 		cur = cur->next;
 	}
+	pthread_mutex_destroy(&main.write);
 	return (0);
 }

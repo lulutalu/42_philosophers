@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:47:02 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:40:56 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:59:12 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	philo_args(t_main *main, char **argv)
 
 int	args_check(t_main *main)
 {
-	if (main->args.n < INT_MIN || main->args.n > INT_MAX)
+	if (main->args.n > INT_MAX)
 		return (error(INT_LIM));
+	if (main->args.n < 1)
+		return (error(NPHILO));
 	if (main->args.t_death < INT_MIN || main->args.t_death > INT_MAX)
 		return (error(INT_LIM));
 	if (main->args.t_eat < INT_MIN || main->args.t_eat > INT_MAX)

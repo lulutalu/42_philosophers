@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:48:25 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:18:10 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,13 @@
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
-# define FREE 0
-# define USED 1
 # define NARG "\e[1;91mNumber of arguments incorrect\n\e[0m"
+# define NPHILO "\e[1;91mNumber of philosophers too low\n\e[0m"
 # define INT_LIM "\e[1;91mArgs value exceed integer limit\n\e[0m"
 
 /*
  * Variables Structures
 */
-
-typedef struct s_thread
-{
-	pthread_t		id;
-	pthread_mutex_t	mute;
-	int				i;
-}				t_thread;
-
-typedef struct s_time
-{
-	struct timeval	begin;
-	struct timeval	actual;
-}				t_time;
 
 typedef struct s_args
 {
@@ -73,17 +59,20 @@ typedef struct s_philo
 {
 	struct s_philo	*next;
 	struct s_philo	*prev;
+	struct timeval	time_eat;
+	struct timeval	now;
 	int				i;
 	pthread_t		id;
 }				t_philo;
 
 typedef struct s_main
 {
+	struct timeval	start;
 	t_args			args;
-	t_time			time;
 	t_philo			*head;
 	t_philo			*tail;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	write;
 	int				i;
 }				t_main;
 
@@ -120,6 +109,7 @@ void	*p_thread(void *arg_struct);
  * Time Functions
 */
 
-double	timer_ms(t_time *time);
+double	timer_ms(struct timeval start, struct timeval now);
+int		check_death(t_philo *philo, t_main *main);
 
 #endif
