@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 20:18:10 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:52:33 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_main
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	write;
 	int				i;
+	int				d_or_n;
 }				t_main;
 
 /*
@@ -83,6 +84,7 @@ typedef struct s_main
 int		error(char *error);
 int		mem_check(void *ptr);
 int		close_programm(t_main *main);
+int		bin_start(t_main *main, char **argv);
 
 /*
  * Args Functions
@@ -98,6 +100,7 @@ int		args_check(t_main *main);
 int		add_lst(t_philo **head, t_philo **tail, int n);
 int		del_lst(t_philo **head, t_philo **tail);
 void	last_del_lst(t_philo **tail);
+int		lst_init(t_main *main);
 
 /*
  * Threads Functions

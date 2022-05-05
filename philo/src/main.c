@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:58:26 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 20:18:13 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:51:34 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,15 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (error(NARG));
-	if (philo_args(&main, argv) != 0)
+	if (bin_start(&main, argv) == 1)
 		return (1);
-	main.head = NULL;
-	main.tail = NULL;
-	main.i = 1;
-	status = 0;
-	while (main.i <= main.args.n && status != 1)
-		status = add_lst(&main.head, &main.tail, main.i++);
-	if (status == 1)
-		return (del_lst(&main.head, &main.tail));
-	/////////////////////////////////////////////
 	gettimeofday(&main.start, NULL);
-	if (pthread_mutex_init(&main.write, NULL) != 0)
-		return (1);
-	////////////////////////////////////////////
 	main.i = 1;
 	cur = main.head;
 	while (main.i <= main.args.n && status == 0)
 	{
 		status = pthread_create(&cur->id, NULL, p_thread, &main);
-		usleep(100);
+		usleep(200);
 		main.i++;
 		cur = cur->next;
 	}
@@ -48,11 +36,16 @@ int	main(int argc, char **argv)
 		return (close_programm(&main));
 	/////////////////////////////////////////////
 	cur = main.head;
+	status = -1;
 	while (cur != NULL)
 	{
-		pthread_join(cur->id, NULL);
+		while (status != 0)
+			status = pthread_join(cur->id, NULL);
+		if (main.d_or_n == 1)
+			return (close_programm(&main));
 		cur = cur->next;
+		status = -1;
 	}
-	pthread_mutex_destroy(&main.write);
+	close_programm(&main);
 	return (0);
 }

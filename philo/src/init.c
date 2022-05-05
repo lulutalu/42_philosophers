@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:47:02 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:59:12 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:05:56 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	philo_args(t_main *main, char **argv)
 	main->args.t_death = ft_atol(argv[2]);
 	main->args.t_eat = ft_atol(argv[3]);
 	main->args.t_sleep = ft_atol(argv[4]);
+	main->d_or_n = 0;
 	if (argv[5] != NULL)
 		main->args.n_eat = ft_atol(argv[5]);
 	else
@@ -42,5 +43,20 @@ int	args_check(t_main *main)
 		return (error(INT_LIM));
 	if (main->args.n_eat < INT_MIN || main->args.n_eat > INT_MAX)
 		return (error(INT_LIM));
+	return (0);
+}
+
+int	bin_start(t_main *main, char **argv)
+{
+	if (philo_args(main, argv) != 0)
+		return (1);
+	if (lst_init(main) == 1)
+		return (close_programm(main));
+	if (pthread_mutex_init(&main->write, NULL) != 0)
+		return (close_programm(main));
+	main->i = 0;
+	while (main->i < main->args.n)
+		if (pthread_mutex_init(&main->fork[main->i++], NULL) != 0)
+			return (close_programm(main));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:33 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:39:55 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:05:18 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,22 @@ int	mem_check(void *ptr)
 int	close_programm(t_main *main)
 {
 	t_philo	*cur;
+	int		i;
 
-	cur = main->head;
-	while (cur->i <= main->args.n)
+	if (main->head != NULL)
 	{
-		pthread_detach(cur->id);
-		cur = cur->next;
+		cur = main->head;
+		while (cur != NULL)
+		{
+			pthread_detach(cur->id);
+			cur = cur->next;
+		}
+		del_lst(&main->head, &main->tail);
 	}
-	del_lst(&main->head, &main->tail);
+	pthread_mutex_destroy(&main->write);
+	i = 0;
+	while (i < main->args.n)
+		pthread_mutex_destroy(&main->fork[i++]);
+	free(main->fork);
 	return (1);
 }

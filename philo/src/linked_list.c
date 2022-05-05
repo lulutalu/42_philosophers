@@ -6,11 +6,26 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 19:38:44 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 18:41:45 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:00:00 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+int	lst_init(t_main *main)
+{
+	int	status;
+
+	main->head = NULL;
+	main->tail = NULL;
+	main->i = 1;
+	status = 0;
+	while (main->i <= main->args.n && status != 1)
+		status = add_lst(&main->head, &main->tail, main->i++);
+	if (status == 1)
+		return (del_lst(&main->head, &main->tail));
+	return (0);
+}
 
 int	add_lst(t_philo **head, t_philo **tail, int n)
 {

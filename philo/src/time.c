@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:44:52 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/04 20:18:09 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:49:27 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	check_death(t_philo	*philo, t_main *main)
 	if (time > (double)main->args.t_death)
 	{
 		pthread_mutex_lock(&main->write);
-		printf("Philo %d died at %.2f ms\n", philo->i, \
+		printf("Philo %d died at %.1f ms\n", philo->i, \
 				timer_ms(main->start, philo->now));
+		main->d_or_n = 1;
 		pthread_mutex_unlock(&main->write);
 		return (1);
 	}
