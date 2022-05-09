@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:24:33 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/05 19:52:32 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:34:43 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,59 @@
 
 void	*p_thread(void *arg_struct)
 {
-	t_main	*thread;
-	t_philo	*cur;
-	int		i;
+	t_main		*thread;
+	t_philo		*cur;
+	int			i;
 
 	thread = (t_main *)arg_struct;
 	i = thread->i;
 	cur = thread->head;
 	while (cur->i < i && cur != NULL)
 		cur = cur->next;
+	cur->eat = 0;
 	gettimeofday(&cur->time_eat, NULL);
-	while (1)
+	if (thread->args.n_eat != -1)
 	{
-		if (thread->d_or_n == 1)
-			usleep(10000);
-		if (check_death(cur, thread) == 1)
-			return (NULL);
+		while (thread->d_or_n != 1 && cur->eat < thread->args.n_eat)
+		{
+			philo(thread, cur);
+			cur->eat++;
+		}
 	}
+	else
+		while (thread->d_or_n != 1)
+			philo(thread, cur);
 	return (0);
 }
 
-void	eat(t_main *main, t_philo *philo)
+void	philo(t_main *main, t_philo *philo)
 {
-	if (philo->i == 1)
+	if (philo->i % 2 == 1 && philo->eat == 0)
 	{
-		pthread_mutex_lock(&main->fork[0]);
-		pthread_mutex_lock(&main->fork[main->args.n - 1]);
-		gettimeofday(&philo->time_eat, NULL);
-		gettimeofday(&philo->now, NULL);
-		pthread_mutex_lock(&main->write);
-		printf("Philo %d eat at %.1f ms\n", philo->i, \
-				timer_ms(main->start, philo->now));
-		pthread_mutex_unlock(&main->write);
-		pthread_mutex_unlock(&main->fork[0]);
-		pthread_mutex_unlock(&main->fork[main->args.n - 1]);
+		usleep(800);
+		if (philo->i == 1)
+			action(main, philo, 0, main->args.n - 1);
+		else
+		action(main, philo, philo->i - 1, philo->i - 2);
 	}
+	else
+		action(main, philo, philo->i - 1, philo->i - 2);
+}
+
+void	action(t_main *main, t_philo *philo, int fork1, int fork2)
+{
+	pthread_mutex_lock(&main->eat);
+	pthread_mutex_lock(&main->fork[fork1]);
+	print_take_fork(main, philo);
+	pthread_mutex_lock(&main->fork[fork2]);
+	pthread_mutex_unlock(&main->eat);
+	print_take_fork(main, philo);
+	print_eat(main, philo);
+	usleep(main->args.t_eat);
+	gettimeofday(&philo->time_eat, NULL);
+	pthread_mutex_unlock(&main->fork[fork1]);
+	pthread_mutex_unlock(&main->fork[fork2]);
+	print_sleep(main, philo);
+	usleep(main->args.t_sleep);
+	print_thinking(main, philo);
 }

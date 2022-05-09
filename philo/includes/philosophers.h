@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/05 19:52:33 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:25:21 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philo
 	struct timeval	time_eat;
 	struct timeval	now;
 	int				i;
+	int				eat;
 	pthread_t		id;
 }				t_philo;
 
@@ -73,6 +74,8 @@ typedef struct s_main
 	t_philo			*tail;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	write;
+	pthread_mutex_t	eat;
+	pthread_t		checker;
 	int				i;
 	int				d_or_n;
 }				t_main;
@@ -85,6 +88,7 @@ int		error(char *error);
 int		mem_check(void *ptr);
 int		close_programm(t_main *main);
 int		bin_start(t_main *main, char **argv);
+int		join_programm(t_main *main);
 
 /*
  * Args Functions
@@ -103,16 +107,29 @@ void	last_del_lst(t_philo **tail);
 int		lst_init(t_main *main);
 
 /*
+ * Print Messages
+*/
+
+void	print_death(t_philo *philo, t_main *main);
+void	print_take_fork(t_main *main, t_philo *philo);
+void	print_eat(t_main *main, t_philo *philo);
+void	print_sleep(t_main *main, t_philo *philo);
+void	print_thinking(t_main *main, t_philo *philo);
+
+/*
  * Threads Functions
 */
 
 void	*p_thread(void *arg_struct);
+void	philo(t_main *main, t_philo *philo);
+void	*check_death(void *arg_struct);
+void	action(t_main *main, t_philo *philo, int fork1, int fork2);
+int		thread_init(t_main *main);
 
 /*
  * Time Functions
 */
 
 double	timer_ms(struct timeval start, struct timeval now);
-int		check_death(t_philo *philo, t_main *main);
 
 #endif

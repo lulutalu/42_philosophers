@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 17:44:52 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/05 19:49:27 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:35:21 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,29 @@ double	timer_ms(struct timeval start, struct timeval now)
 	return ((pass * 1000) + (upass / 1000));
 }
 
-int	check_death(t_philo	*philo, t_main *main)
+void	*check_death(void *arg_struct)
 {
-	double	time;
+	t_main	*checker;
+	t_philo	*cur;
+	int		time;
 
-	gettimeofday(&philo->now, NULL);
-	time = timer_ms(philo->time_eat, philo->now);
-	if (time > (double)main->args.t_death)
+	checker = (t_main *)arg_struct;
+	while (1)
 	{
-		pthread_mutex_lock(&main->write);
-		printf("Philo %d died at %.1f ms\n", philo->i, \
-				timer_ms(main->start, philo->now));
-		main->d_or_n = 1;
-		pthread_mutex_unlock(&main->write);
-		return (1);
+		cur = checker->head;
+		while (cur != NULL)
+		{
+			gettimeofday(&cur->now, NULL);
+			usleep(3000);
+			time = (int)timer_ms(cur->time_eat, cur->now);
+			if (time > checker->args.t_death)
+			{
+				print_death(cur, checker);
+				checker->d_or_n = 1;
+				pthread_mutex_lock(&checker->write);
+				return (0);
+			}
+			cur = cur->next;
+		}
 	}
-	return (0);
 }
