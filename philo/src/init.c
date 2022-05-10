@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:47:02 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/09 20:35:51 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/10 18:46:42 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	bin_start(t_main *main, char **argv)
 		return (close_programm(main));
 	if (pthread_mutex_init(&main->write, NULL) != 0)
 		return (close_programm(main));
-	if (pthread_mutex_init(&main->eat, NULL) != 0)
-		return (close_programm(main));
 	main->i = 0;
 	while (main->i < main->args.n)
 		if (pthread_mutex_init(&main->fork[main->i++], NULL) != 0)
@@ -73,10 +71,10 @@ int	thread_init(t_main *main)
 	main->i = 1;
 	cur = main->head;
 	status = 0;
-	while (main->i <= main->args.n && status == 0)
+	while (cur != NULL && status == 0)
 	{
 		status = pthread_create(&cur->id, NULL, p_thread, main);
-		usleep(100);
+		usleep(1);
 		main->i++;
 		cur = cur->next;
 	}

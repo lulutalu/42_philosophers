@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 15:05:33 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/09 20:26:30 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/10 18:46:55 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	close_programm(t_main *main)
 		del_lst(&main->head, &main->tail);
 	}
 	pthread_mutex_destroy(&main->write);
-	pthread_mutex_destroy(&main->eat);
 	i = 0;
 	while (i < main->args.n)
 		pthread_mutex_destroy(&main->fork[i++]);
@@ -54,17 +53,16 @@ int	join_programm(t_main *main)
 {
 	t_philo	*cur;
 	int		i;
-												 
+
+	pthread_join(main->checker, NULL);
 	cur = main->head;
 	while (cur != NULL)
 	{
-		pthread_join(cur->id, NULL);
+		pthread_detach(cur->id);
 		cur = cur->next;
 	}
 	del_lst(&main->head, &main->tail);
-	pthread_detach(main->checker);
 	pthread_mutex_destroy(&main->write);
-	pthread_mutex_destroy(&main->eat);
 	i = 0;
 	while (i < main->args.n)
 		pthread_mutex_destroy(&main->fork[i++]);

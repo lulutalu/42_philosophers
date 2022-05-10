@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:24:33 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/09 20:34:43 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/10 18:32:06 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ void	*p_thread(void *arg_struct)
 
 void	philo(t_main *main, t_philo *philo)
 {
-	if (philo->i % 2 == 1 && philo->eat == 0)
+	if (philo->i == 1)
+		action(main, philo, 0, main->args.n - 1);
+	else if (philo->i % 2 == 0)
 	{
 		usleep(800);
-		if (philo->i == 1)
-			action(main, philo, 0, main->args.n - 1);
-		else
 		action(main, philo, philo->i - 1, philo->i - 2);
 	}
 	else
@@ -55,11 +54,9 @@ void	philo(t_main *main, t_philo *philo)
 
 void	action(t_main *main, t_philo *philo, int fork1, int fork2)
 {
-	pthread_mutex_lock(&main->eat);
 	pthread_mutex_lock(&main->fork[fork1]);
 	print_take_fork(main, philo);
 	pthread_mutex_lock(&main->fork[fork2]);
-	pthread_mutex_unlock(&main->eat);
 	print_take_fork(main, philo);
 	print_eat(main, philo);
 	usleep(main->args.t_eat);

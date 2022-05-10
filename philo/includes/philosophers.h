@@ -6,7 +6,7 @@
 /*   By: lduboulo <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:43:18 by lduboulo          #+#    #+#             */
-/*   Updated: 2022/05/09 20:25:21 by lduboulo         ###   ########.fr       */
+/*   Updated: 2022/05/10 18:46:29 by lduboulo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_main
 	t_philo			*tail;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	write;
-	pthread_mutex_t	eat;
 	pthread_t		checker;
 	int				i;
 	int				d_or_n;
@@ -125,11 +124,13 @@ void	philo(t_main *main, t_philo *philo);
 void	*check_death(void *arg_struct);
 void	action(t_main *main, t_philo *philo, int fork1, int fork2);
 int		thread_init(t_main *main);
+int		did_eat(t_main *checker);
 
 /*
  * Time Functions
 */
 
 double	timer_ms(struct timeval start, struct timeval now);
+void	*death(t_main *checker, t_philo *cur);
 
 #endif
